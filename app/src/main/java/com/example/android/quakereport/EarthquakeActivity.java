@@ -32,24 +32,26 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
         // Create a fake list of earthquake locations.
-        ArrayList<String> earthquakes = new ArrayList<>();
-        earthquakes.add("San Francisco");
-        earthquakes.add("London");
-        earthquakes.add("Tokyo");
-        earthquakes.add("Mexico City");
-        earthquakes.add("Moscow");
-        earthquakes.add("Rio de Janeiro");
-        earthquakes.add("Paris");
+        ArrayList<EarthquakeEvent> earthquakes = new ArrayList<>();
+        earthquakes.add(new EarthquakeEvent("6.2", "Moon", "Sept 2014"));
+        earthquakes.add(new EarthquakeEvent("6.2", "London", "Sept 2014"));
+        earthquakes.add(new EarthquakeEvent("6.2", "Tokio", "Sept 2014"));
+        earthquakes.add(new EarthquakeEvent("6.2", "Mexico City", "Sept 2014"));
+        earthquakes.add(new EarthquakeEvent("6.2", "Moscow", "Sept 2014"));
+        earthquakes.add(new EarthquakeEvent("6.2", "Rio De Janeiro", "Sept 2014"));
+        earthquakes.add(new EarthquakeEvent("6.2", "Paris", "Sept 2014"));
 
-        // Find a reference to the {@link ListView} in the layout
-        ListView earthquakeListView = (ListView) findViewById(R.id.list);
+        // Create an {@link WordAdapter}, whose data source is a list of {@link Word}s. The
+        // adapter knows how to create list items for each item in the list.
+        EventAdapter adapter = new EventAdapter(this, earthquakes);
 
-        // Create a new {@link ArrayAdapter} of earthquakes
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, earthquakes);
+        // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
+        // There should be a {@link ListView} with the view ID called list, which is declared in the
+        // word_listyout file.
+        ListView listView = (ListView) findViewById(R.id.list);
 
-        // Set the adapter on the {@link ListView}
-        // so the list can be populated in the user interface
-        earthquakeListView.setAdapter(adapter);
+        // Make the {@link ListView} use the {@link WordAdapter} we created above, so that the
+        // {@link ListView} will display list items for each {@link Word} in the list.
+        listView.setAdapter(adapter);
     }
 }
