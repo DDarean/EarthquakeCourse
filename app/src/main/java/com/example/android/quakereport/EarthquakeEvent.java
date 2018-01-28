@@ -1,25 +1,28 @@
 package com.example.android.quakereport;
 
-import java.sql.Time;
-
 /**
  * Created by ddare on 27.01.2018.
  */
 
 public class EarthquakeEvent {
 
-    private String mMagnitude;
+    private Double mMagnitude;
     private String mLocation;
-    private String mDate;
+    private long mDate;
+    private long mTime;
+    private String mUrl;
 
 
-    public EarthquakeEvent(String Magnitude, String Location, String Date) {
+    public EarthquakeEvent(Double Magnitude, String Location, long Date, String url) {
         mMagnitude = Magnitude;
         mLocation = Location;
         mDate = Date;
+        mUrl = url;
     }
 
-    public String getMagnitude() {return mMagnitude;}
+    public Double getMagnitude() {return mMagnitude;}
     public String getLocation() {return mLocation;}
-    public String getDate() {return mDate;}
+    public long getDate() {return mDate;}
+    public long getTime() {return mTime;}
+    public String getUrl() {return mUrl;}
 }

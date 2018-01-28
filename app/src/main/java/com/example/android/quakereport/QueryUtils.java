@@ -4,18 +4,13 @@ package com.example.android.quakereport;
  * Created by ddare on 27.01.2018.
  */
 
+import android.util.Log;
+
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-
-        import android.util.Log;
-
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
-
-        import java.util.ArrayList;
 
 /**
  * Helper methods related to requesting and receiving earthquake data from USGS.
@@ -52,6 +47,8 @@ public final class QueryUtils {
         // Create an empty ArrayList that we can start adding earthquakes to
         ArrayList<EarthquakeEvent> earthquakes = new ArrayList<>();
 
+
+
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
@@ -63,14 +60,19 @@ public final class QueryUtils {
             JSONObject jsonObj = new JSONObject(SAMPLE_JSON_RESPONSE);
             JSONArray earthquakesArray = jsonObj.getJSONArray("features");
 
-            for (int i = 1; i < earthquakesArray.length(); i++) {
+            for (int i = 0; i < earthquakesArray.length(); i++) {
 
                 JSONObject c = earthquakesArray.getJSONObject(i);
                 JSONObject properties = c.getJSONObject("properties");
-                String magnitude = properties.getString("mag");
+                double magnitude = properties.getDouble("mag");
                 String place = properties.getString("place");
-                String time = properties.getString("time");
-                EarthquakeEvent eqev = new EarthquakeEvent(magnitude,place,time);
+                Long time = properties.getLong("time");
+                // Extract the value for the key called "url"
+
+                String url = properties.getString("url");
+
+
+                EarthquakeEvent eqev = new EarthquakeEvent(magnitude,place,time, url);
                 earthquakes.add(eqev);
             }
 
